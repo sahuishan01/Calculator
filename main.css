@@ -65,7 +65,7 @@ main {
 }
 #panel div:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 4px yellow;
+  box-shadow: 0 0 8px #2d5f5d;
 }
 #allClear {
   grid-column: 3/5;

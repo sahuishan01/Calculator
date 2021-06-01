@@ -153,7 +153,6 @@ divs.forEach((div) => {
 window.addEventListener("keydown", (e) => {
   inputArea.focus();
   if (isNumberKey(e) == true) {
-    console.log(isNumberKey(e));
     if (operatorSelection == false) {
       inputArea.value += e.key;
       operatorSelection = false;
@@ -164,20 +163,28 @@ window.addEventListener("keydown", (e) => {
   }
 
   var keycode1 = e.keyCode;
-  if (keycode1 == 13) {
+  if (e.key == "Enter") {
     resultFunction();
     secondNumber = 0;
     operand = "";
+  } else if (e.key == "+") {
+    document.getElementById("add").click();
+  } else if (e.key == "-") {
+    document.getElementById("subtract").click();
+  } else if (e.key == "x" || e.key == "*" || e.key == "X") {
+    document.getElementById("multiply").click();
+  } else if (e.key == "/") {
+    document.getElementById("divide").click();
+  } else if (e.key == "%") {
+    document.getElementById("module").click();
+  } else if (e.key == "Backspace") {
+    document.getElementById("clear").click();
   }
 });
-const clearScreen = () => {
-  inputArea.value = "";
-};
+
 const calculate = (num1, oper, num2) => {
   num1 = parseFloat(num1);
   num2 = parseFloat(num2);
-  console.log("running calculate");
-  console.log("current operator is " + oper);
   switch (oper) {
     case "+":
       result = num1 + num2;
@@ -190,7 +197,7 @@ const calculate = (num1, oper, num2) => {
       return result;
     case "/":
       result = num1 / num2;
-      return result;
+      return parseFloat(result);
     case "%":
       result = num1 % num2;
       return result;
@@ -199,7 +206,6 @@ const calculate = (num1, oper, num2) => {
 function isNumberKey(evt) {
   var charCode = evt.which ? evt.which : evt.keyCode;
   if ((charCode > 47 && charCode < 58) || charCode == 190) {
-    console.log(charCode);
     return true;
   } else {
     return false;
@@ -210,13 +216,9 @@ const resultFunction = () => {
   if (firstNumber != undefined) {
     secondNumber = inputArea.value.replaceAll(/\D\./g, "");
     inputArea.value = "";
-    console.log("first number before calculation is = " + firstNumber);
-    console.log("second number before calculation is = " + secondNumber);
-    console.log("inside !=0 ");
     if (calculate(firstNumber, operand, secondNumber) == undefined) {
       result = firstNumber;
       inputArea.value = result;
-      console.log("result after calculation is = " + result);
     } else {
       inputArea.value = calculate(firstNumber, operand, secondNumber);
     }
@@ -224,7 +226,5 @@ const resultFunction = () => {
   } else {
     firstNumber = parseFloat(inputArea.value);
     inputArea.value = "";
-    console.log("inside =0 ");
-    console.log("first number is " + firstNumber);
   }
 };
